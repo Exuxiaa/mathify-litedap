@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Source Sans 3', system-ui, -apple-system, sans-serif; color: #1f2733; margin: 0; }
+  .brandfont { font-family: 'Source Serif 4', Georgia, serif; letter-spacing: -.02em; }
+
+  @keyframes mf-topbar {
+    0%   { left: -60%; width: 60%; }
+    100% { left: 110%; width: 60%; }
+  }
+  @keyframes mf-pulse {
+    0%, 100% { box-shadow: 0 8px 32px rgba(29,78,137,.22), 0 0 0 0 rgba(29,78,137,.28); }
+    50%       { box-shadow: 0 8px 32px rgba(29,78,137,.22), 0 0 0 18px rgba(29,78,137,0); transform: scale(1.045); }
+  }
+  @keyframes mf-fadein {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes mf-dot {
+    0%, 80%, 100% { transform: scale(0.55); opacity: .2; }
+    40%            { transform: scale(1);    opacity: 1; }
+  }
+
+  /* ── Copy everything below into your JSP style block ── */
+  .mf-topbar { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: rgba(29,78,137,.1); z-index: 9999; overflow: hidden; }
+  .mf-topbar-fill { position: absolute; top: 0; height: 100%; background: #1d4e89; animation: mf-topbar 1.7s cubic-bezier(.4,0,.6,1) infinite; }
+  .mf-screen { min-height: 100vh; background: #eef1f6; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; position: relative; }
+  .mf-logo { width: 80px; height: 80px; border-radius: 22px; background: #1d4e89; color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Source Serif 4', Georgia, serif; font-size: 2.5rem; font-weight: 700; box-shadow: 0 8px 32px rgba(29,78,137,.22); animation: mf-pulse 2.4s ease-in-out infinite; }
+  .mf-brand { font-family: 'Source Serif 4', Georgia, serif; font-weight: 700; font-size: 1.8rem; color: #1d4e89; margin-top: 20px; letter-spacing: -.025em; }
+  .mf-dots { display: flex; gap: 10px; margin-top: 44px; align-items: center; }
+  .mf-dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #1d4e89; animation: mf-dot 1.5s ease-in-out infinite; }
+  .mf-dot:nth-child(2) { animation-delay: .2s; }
+  .mf-dot:nth-child(3) { animation-delay: .4s; }
+  .mf-msg { font-size: .93rem; color: #6c757d; margin-top: 20px; min-height: 1.5em; text-align: center; margin-bottom: 0; }
+  .mf-footer { position: absolute; bottom: 28px; left: 0; right: 0; text-align: center; color: #c0c8d4; font-size: .78rem; }
+  .mf-entry   { animation: mf-fadein .6s ease both; }
+  .mf-entry-2 { animation: mf-fadein .6s .13s ease both; }
+  .mf-entry-3 { animation: mf-fadein .6s .26s ease both; }
+  .mf-entry-4 { animation: mf-fadein .6s .40s ease both; }
+</style>
+</helmet>
+
+<div class="mf-topbar"><div class="mf-topbar-fill"></div></div>
+
+<div class="mf-screen">
+  <div class="mf-entry">
+    <div class="mf-logo">&Sigma;</div>
+  </div>
+  <div class="brandfont mf-brand mf-entry-2">Mathify</div>
+  <div class="mf-dots mf-entry-3">
+    <span class="mf-dot"></span>
+    <span class="mf-dot"></span>
+    <span class="mf-dot"></span>
+  </div>
+  <p class="mf-msg mf-entry-4">{{ message }}</p>
+  <div class="mf-footer">&copy; 2026 Mathify</div>
+</div>
+
+<!-- JSP Notes -->
+<div style="background:#f6f8fb;border-top:1px solid #e2e7ef;padding:60px 24px 72px;">
+  <div style="max-width:880px;margin:0 auto;">
+
+    <div class="brandfont fw-bold" style="font-size:1.4rem;color:#1d4e89;margin-bottom:6px;">JSP Implementation</div>
+    <p class="text-secondary" style="font-size:.9rem;margin-bottom:36px;">Copy the <code>.mf-*</code> CSS above into your <code>&lt;style&gt;</code> block, then drop the markup below into your JSP. Inject dynamic values via JSTL EL from your servlet.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-bottom:36px;">
+      <div style="background:#fff;border:1px solid #e2e7ef;border-radius:10px;padding:20px;">
+        <div style="font-size:.72rem;font-weight:700;color:#1d4e89;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;"><i class="bi bi-chat-text me-1"></i>Status Message</div>
+        <code style="font-size:.82rem;color:#1f2733;background:#eef3fa;padding:4px 9px;border-radius:6px;display:inline-block;">${loadingMessage}</code>
+        <p class="text-secondary" style="font-size:.8rem;margin-top:12px;margin-bottom:0;line-height:1.6;">Set in servlet:<br><code style="font-size:.77rem;">request.setAttribute(<br>&nbsp;&nbsp;"loadingMessage", "Loading…")</code></p>
+      </div>
+      <div style="background:#fff;border:1px solid #e2e7ef;border-radius:10px;padding:20px;">
+        <div style="font-size:.72rem;font-weight:700;color:#1d4e89;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;"><i class="bi bi-arrow-right-circle me-1"></i>Redirect Target</div>
+        <code style="font-size:.82rem;color:#1f2733;background:#eef3fa;padding:4px 9px;border-radius:6px;display:inline-block;">${redirectUrl}</code>
+        <p class="text-secondary" style="font-size:.8rem;margin-top:12px;margin-bottom:0;line-height:1.6;">JS auto-redirects in <strong>300ms</strong> if set, falls back to <code style="font-size:.77rem;">/dashboard</code> after 2.5s.</p>
+      </div>
+      <div style="background:#fff;border:1px solid #e2e7ef;border-radius:10px;padding:20px;">
+        <div style="font-size:.72rem;font-weight:700;color:#1d4e89;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;"><i class="bi bi-skip-forward me-1"></i>Skip Entirely</div>
+        <code style="font-size:.82rem;color:#1f2733;background:#eef3fa;padding:4px 9px;border-radius:6px;display:inline-block;">response.sendRedirect()</code>
+        <p class="text-secondary" style="font-size:.8rem;margin-top:12px;margin-bottom:0;line-height:1.6;">If data is ready at request time, bypass this page server-side before it renders.</p>
+      </div>
+    </div>
+
+    <div style="background:#1a2236;border-radius:14px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.18);">
+      <div style="background:#141b2d;padding:12px 20px;display:flex;align-items:center;gap:7px;border-bottom:1px solid rgba(255,255,255,.06);">
+        <span style="width:12px;height:12px;border-radius:50%;background:#ff5f57;display:inline-block;flex:none;"></span>
+        <span style="width:12px;height:12px;border-radius:50%;background:#febc2e;display:inline-block;flex:none;"></span>
+        <span style="width:12px;height:12px;border-radius:50%;background:#28c840;display:inline-block;flex:none;"></span>
+        <span style="color:#6b7fa8;font-size:.78rem;margin-left:10px;font-family:'Courier New',monospace;letter-spacing:.04em;">loading.jsp</span>
+      </div>
+      <pre style="margin:0;padding:28px 32px;color:#c9d1e0;font-size:.78rem;line-height:1.9;overflow-x:auto;font-family:'Courier New',Courier,monospace;background:transparent;border:none;">{{ jspSnippet }}</pre>
+    </div>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1280, &quot;height&quot;: 820 },
+  &quot;message&quot;: {
+    &quot;editor&quot;: &quot;text&quot;,
+    &quot;default&quot;: &quot;&quot;,
+    &quot;tsType&quot;: &quot;string&quot;
+  }
+}">
+class Component extends DCLogic {
+  state = { msgIdx: 0 };
+
+  componentDidMount() {
+    this._t = setInterval(() => {
+      this.setState(s => ({ msgIdx: (s.msgIdx + 1) % 4 }));
+    }, 2000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._t);
+  }
+
+  renderVals() {
+    const msgs = [
+      'Getting things ready\u2026',
+      'Loading your courses\u2026',
+      'Preparing your dashboard\u2026',
+      'Almost there\u2026'
+    ];
+
+    const sc = '\x3c' + 'script\x3e';
+    const scEnd = '\x3c' + '/script\x3e';
+
+    const lines = [
+      '<%@ page language="java" contentType="text/html; charset=UTF-8" %>',
+      '<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>',
+      '<!DOCTYPE html>',
+      '<html lang="en">',
+      '<head>',
+      '  <meta charset="UTF-8">',
+      '  <meta name="viewport" content="width=device-width, initial-scale=1">',
+      '  <title>Loading \u2014 Mathify</title>',
+      '  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">',
+      '  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,700&display=swap">',
+      '  <style>',
+      '    /* Paste .mf-* rules + @keyframes from Mathify Loading.dc.html */',
+      '  </style>',
+      '</head>',
+      '<body>',
+      '',
+      '  <div class="mf-topbar"><div class="mf-topbar-fill"></div></div>',
+      '',
+      '  <div class="mf-screen">',
+      '    <div class="mf-entry"><div class="mf-logo">\u03A3</div></div>',
+      '    <div class="mf-brand mf-entry-2">Mathify</div>',
+      '    <div class="mf-dots mf-entry-3">',
+      '      <span class="mf-dot"></span>',
+      '      <span class="mf-dot"></span>',
+      '      <span class="mf-dot"></span>',
+      '    </div>',
+      '    <p class="mf-msg mf-entry-4">${loadingMessage}</p>',
+      '    <div class="mf-footer">&copy; 2026 Mathify</div>',
+      '  </div>',
+      '',
+      '  ' + sc,
+      '    // Set in servlet: request.setAttribute("redirectUrl", "/dashboard");',
+      "    var url = '${redirectUrl}';",
+      '    setTimeout(function() {',
+      "      window.location.href = url || '/dashboard';",
+      '    }, url ? 300 : 2500);',
+      '  ' + scEnd,
+      '',
+      '</body>',
+      '</html>'
+    ];
+
+    return {
+      message: this.props.message || msgs[this.state.msgIdx],
+      jspSnippet: lines.join('\n')
+    };
+  }
+}
+
+</script>
+</body>
+</html>
