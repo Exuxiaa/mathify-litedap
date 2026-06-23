@@ -101,6 +101,24 @@ public final class MidtransConfig {
         return Boolean.parseBoolean(get("MIDTRANS_IS_PRODUCTION", "false"));
     }
 
+    /** Monthly premium price in whole IDR (Midtrans requires integer amounts). */
+    public static long getMonthlyPriceIdr() {
+        return priceOr("MIDTRANS_PRICE_MONTHLY", 125_500L);
+    }
+
+    /** Yearly premium price in whole IDR. */
+    public static long getYearlyPriceIdr() {
+        return priceOr("MIDTRANS_PRICE_YEARLY", 1_224_500L);
+    }
+
+    private static long priceOr(String key, long fallback) {
+        try {
+            return Long.parseLong(get(key, Long.toString(fallback)));
+        } catch (NumberFormatException e) {
+            return fallback;
+        }
+    }
+
     /** True only when a server key is present (i.e. payments can be attempted). */
     public static boolean isConfigured() {
         return !getServerKey().isBlank();
