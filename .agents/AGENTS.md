@@ -127,7 +127,8 @@ XAMPP ships its own Tomcat on port 8080; if `cargo:run` reports "Port 8080 in us
 ## Payments (Midtrans)
 
 The "Go Premium" upgrade uses the Midtrans Snap flow, sandbox by default.
-Credentials come from a gitignored `.env` at the project root, read by `com.mathify.util.MidtransConfig` (`MIDTRANS_SERVER_KEY`, `MIDTRANS_CLIENT_KEY`, `MIDTRANS_MERCHANT_ID`, `MIDTRANS_IS_PRODUCTION`, `MIDTRANS_PREMIUM_PRICE`); OS env vars override the file.
+Credentials come from a gitignored `.env` at the project root, read by `com.mathify.util.MidtransConfig` (`MIDTRANS_SERVER_KEY`, `MIDTRANS_CLIENT_KEY`, `MIDTRANS_MERCHANT_ID`, `MIDTRANS_IS_PRODUCTION`); OS env vars override the file.
+Plan prices are not in `.env`: with Snap the server sends the amount, so the monthly and yearly amounts are constants in `PremiumCheckoutServlet.resolvePlan`.
 Never hard-code keys; see `.env.example`.
 The server is the source of truth: `PremiumCheckoutServlet` (`/student/premium/checkout.do`) creates the Snap token with a server-side fixed amount, and `PremiumConfirmServlet` (`/student/premium/confirm.do`) re-verifies the transaction status with Midtrans before granting premium.
 Never trust the browser's success callback or a client-supplied amount.

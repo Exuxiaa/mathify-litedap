@@ -101,15 +101,6 @@ public final class MidtransConfig {
         return Boolean.parseBoolean(get("MIDTRANS_IS_PRODUCTION", "false"));
     }
 
-    /** Premium plan price in whole IDR (Midtrans requires integer amounts). */
-    public static long getPremiumPriceIdr() {
-        try {
-            return Long.parseLong(get("MIDTRANS_PREMIUM_PRICE", "49000"));
-        } catch (NumberFormatException e) {
-            return 49000L;
-        }
-    }
-
     /** True only when a server key is present (i.e. payments can be attempted). */
     public static boolean isConfigured() {
         return !getServerKey().isBlank();
